@@ -26,33 +26,47 @@ public class Tank : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit objectOnHitLine; 
-        if(Physics.Raycast(transform.position, transform.forward, out objectOnHitLine))
+        if(!isPlayer)
+        {
+            FollowEnemy();
+        }
+       
+    }
+
+    void FollowEnemy()
+    {
+        RaycastHit objectOnHitLine;
+        if (Physics.Raycast(transform.position, transform.forward, out objectOnHitLine))
         {
             Tank enemyTank = objectOnHitLine.transform.gameObject.GetComponent<Tank>();
-            if(enemyTank.GetComponent<Tank>())
+            if (enemyTank.GetComponent<Tank>())
             {
-                if(!myTeam.Contains(enemyTank))
+                if (!myTeam.Contains(enemyTank))
                 {
-                    if(objectOnHitLine.distance>maxDistanceOfShooting)
+                    if (objectOnHitLine.distance > maxDistanceOfShooting)
                     {
                         tankNavigation.SetDestination(objectOnHitLine.transform.position);
                     }
-                    else 
+                    else
                     {
                         DestroyEnemy(enemyTank.gameObject);
                     }
-                    
+
                 }
-                
+
             }
         }
         else
         {
-            transform.Rotate(0,rotationSpeed,0);
+            SearchEnemy();
         }
     }
 
+
+    void SearchEnemy()
+    {
+        transform.Rotate(0, rotationSpeed, 0);
+    }
     void DestroyEnemy(GameObject enemyTank)
     {
         int teamscore = PlayerPrefs.GetInt(team);
