@@ -295,8 +295,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8913803245145785283}
   - component: {fileID: 717169057}
-  - component: {fileID: 1652782048213507098}
   - component: {fileID: 2295517019563668406}
+  - component: {fileID: 1626244019338718740}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -341,22 +341,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1652782048213507098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8913803245145785340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e269a4af70f164691ac09444fc0886ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 
-  maxDistanceOfShooting: 5
-  isPlayer: 0
-  rotationSpeed: 2
 --- !u!135 &2295517019563668406
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -370,3 +354,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1626244019338718740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8913803245145785340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024211da4afcfb949a596cb77a7b0fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 
+  maxDistanceOfShooting: 5
+  isPlayer: 0
+  rotationSpeed: 2
+  bodyColor: {r: 0, g: 0, b: 0, a: 0}

@@ -38,23 +38,27 @@ public class Tank : MonoBehaviour
         RaycastHit objectOnHitLine;
         if (Physics.Raycast(transform.position, transform.forward, out objectOnHitLine))
         {
-            Tank enemyTank = objectOnHitLine.transform.gameObject.GetComponent<Tank>();
-            if (enemyTank.GetComponent<Tank>())
+            Tank enemyTank = null;
+            if (objectOnHitLine.transform.gameObject.GetComponent<Tank>())
+            { 
+                enemyTank = objectOnHitLine.transform.gameObject.GetComponent<Tank>();
+            }
+            if (objectOnHitLine.transform.gameObject.GetComponent<ColoredTank>())
             {
-                if (!myTeam.Contains(enemyTank))
+                enemyTank = (Tank)objectOnHitLine.transform.gameObject.GetComponent<ColoredTank>();
+            }
+            if (!myTeam.Contains(enemyTank))
+            {
+                if (objectOnHitLine.distance > maxDistanceOfShooting)
                 {
-                    if (objectOnHitLine.distance > maxDistanceOfShooting)
-                    {
-                        tankNavigation.SetDestination(objectOnHitLine.transform.position);
-                    }
-                    else
-                    {
-                        DestroyEnemy(enemyTank.gameObject);
-                    }
-
+                    tankNavigation.SetDestination(objectOnHitLine.transform.position);
+                }
+                else
+                {
+                    DestroyEnemy(enemyTank.gameObject);
                 }
 
-            }
+            } 
         }
         else
         {
