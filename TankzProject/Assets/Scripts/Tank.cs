@@ -5,53 +5,24 @@ using System.Linq;
 using UnityEngine.AI;
 
 public class Tank : MonoBehaviour
-{
-    [SerializeField] int iD;
-    public string team;
-    [SerializeField] Color bodyColor;
+{ 
+    public string team; 
     NavMeshAgent tankNavigation;
-    public List<Tank> myTeam;
+    private  List<Tank> myTeam;
+    [SerializeField, Range(1, 100)] float maxDistanceOfShooting = 5;
+    [SerializeField] bool isPlayer; 
+    public float rotationSpeed = 2;
+
     // Start is called before the first frame update
     void Start()
     {
-        tankNavigation = GetComponent<NavMeshAgent>();
-        iD = GameManager.GetRandomId();
-        team = GameManager.GetRandomTeam();
-        myTeam = new List<Tank>();
-        SetBodyColor();
+        tankNavigation = GetComponent<NavMeshAgent>();  
+        myTeam = new List<Tank>(); 
         myTeam = GameObject.FindObjectsOfType<Tank>().ToList().Where(tank=>tank.team == team).ToList();
     }
 
 
-    public void SetBodyColor()
-    {
-        switch (team)
-        {
-            case "red":
-            bodyColor = Color.red;
-            break;
-            case "green":
-            bodyColor = Color.green;
-            break;
-            case "blue":
-            bodyColor = Color.blue;
-            break;
-            default:
-            bodyColor = Color.white;
-            break;
-        }
-        PaintBody();
-    }
-    public void PaintBody()
-    {
-         for(int i=0;i<transform.childCount;i++)
-         {
-             for(int j=0;j<transform.GetChild(i).transform.childCount;j++)
-             {
-                 transform.GetChild(i).transform.GetChild(j).gameObject.GetComponent<Renderer>().material.color = bodyColor;
-             }
-         }
-    }
+     
     // Update is called once per frame
     void Update()
     {
@@ -63,16 +34,13 @@ public class Tank : MonoBehaviour
             {
                 if(!myTeam.Contains(enemyTank))
                 {
-                    if(objectOnHitLine.distance>5)
+                    if(objectOnHitLine.distance>maxDistanceOfShooting)
                     {
                         tankNavigation.SetDestination(objectOnHitLine.transform.position);
                     }
                     else 
                     {
-                        int teamscore = PlayerPrefs.GetInt(team);
-                        teamscore++;
-                        PlayerPrefs.SetInt(team,teamscore);
-                        Destroy(enemyTank.gameObject);
+                        DestroyEnemy(enemyTank.gameObject);
                     }
                     
                 }
@@ -81,7 +49,15 @@ public class Tank : MonoBehaviour
         }
         else
         {
-            transform.Rotate(0,5,0);
+            transform.Rotate(0,rotationSpeed,0);
         }
+    }
+
+    void DestroyEnemy(GameObject enemyTank)
+    {
+        int teamscore = PlayerPrefs.GetInt(team);
+        teamscore++;
+        PlayerPrefs.SetInt(team, teamscore);
+        Destroy(enemyTank.gameObject);
     }
 }
