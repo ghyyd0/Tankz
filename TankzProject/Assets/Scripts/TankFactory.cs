@@ -7,17 +7,15 @@ public class TankFactory : MonoBehaviour
 {
     [SerializeField] GameObject tankToSpawn;
     [SerializeField] List<Tank> tanksOnScene;
-    [SerializeField, Range(1, 600)] float maxTanksOnScene;
+    [SerializeField, Range(1, 100)] float maxTanksOnScene;
     [SerializeField, Range(0, 500)] float sizeOfSpawnField;
-    [SerializeField, Range(-50, 50)] float rotationAngle;
-
+     
 
     private void Awake()
     {
         tanksOnScene = new List<Tank>();
-        maxTanksOnScene = 150;
-        sizeOfSpawnField = 250;
-        rotationAngle = 5;
+        maxTanksOnScene = 5;
+        sizeOfSpawnField = 500;
     }
     private void Start()
     {
@@ -26,10 +24,11 @@ public class TankFactory : MonoBehaviour
 
     private void Update()
     {
-        GameSettings.rotationAngle = rotationAngle;
+        GameSettings.rotation = someShit;
         Vector3 positionForNewTank = GetRandomPosition(); 
         SpawnTank(positionForNewTank);
     }
+    [SerializeField, Range(-50, 50)] float someShit = 5;
     Vector3 GetRandomPosition()
     {
         float randomX = Random.Range(0, sizeOfSpawnField);
