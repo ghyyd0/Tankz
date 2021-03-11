@@ -51,10 +51,7 @@ public class Tank : MonoBehaviour
             {
                 if (objectOnHitLine.distance > maxDistanceOfShooting)
                 {
-                    if (tankNavigation.isOnNavMesh)
-                        tankNavigation.SetDestination(objectOnHitLine.transform.position);
-                    else
-                        Destroy(gameObject);
+                    tankNavigation.SetDestination(objectOnHitLine.transform.position);
                 }
                 else
                 {
