@@ -24,10 +24,11 @@ public class TankFactory : MonoBehaviour
 
     private void Update()
     {
+        GameSettings.rotation = someShit;
         Vector3 positionForNewTank = GetRandomPosition(); 
         SpawnTank(positionForNewTank);
     }
-
+    [SerializeField, Range(-50, 50)] float someShit = 5;
     Vector3 GetRandomPosition()
     {
         float randomX = Random.Range(0, sizeOfSpawnField);
