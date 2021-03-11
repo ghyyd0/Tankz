@@ -6,7 +6,7 @@ public static class GameSettings
 {
     public static string [] teams =   { "red", "blue", "green" };
 
-    public static float rotation;
+    public static float rotationAngle;
 
     public static string GetRandomTeam()
     {

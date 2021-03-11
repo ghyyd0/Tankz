@@ -72,7 +72,7 @@ public class Tank : MonoBehaviour
 
     void SearchEnemy()
     {
-        transform.Rotate(0, GameSettings.rotation, 0);
+        transform.Rotate(0, GameSettings.rotationAngle, 0);
     }
     void DestroyEnemy(GameObject enemyTank)
     {
