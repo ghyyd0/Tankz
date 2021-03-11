@@ -19,6 +19,7 @@ public class Tank : MonoBehaviour
         tankNavigation = GetComponent<NavMeshAgent>();  
         myTeam = new List<Tank>(); 
         myTeam = GameObject.FindObjectsOfType<Tank>().ToList().Where(tank=>tank.team == team).ToList();
+      
     }
 
 
@@ -51,7 +52,10 @@ public class Tank : MonoBehaviour
             {
                 if (objectOnHitLine.distance > maxDistanceOfShooting)
                 {
-                    tankNavigation.SetDestination(objectOnHitLine.transform.position);
+                    if (tankNavigation.isOnNavMesh)
+                        tankNavigation.SetDestination(objectOnHitLine.transform.position);
+                    else
+                        Destroy(gameObject);
                 }
                 else
                 {
@@ -76,6 +80,6 @@ public class Tank : MonoBehaviour
         int teamscore = PlayerPrefs.GetInt(team);
         teamscore++;
         PlayerPrefs.SetInt(team, teamscore);
-        Destroy(enemyTank.gameObject);
+        GetComponent<TankData>().GiveDamage(enemyTank);
     }
 }

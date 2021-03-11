@@ -46,6 +46,7 @@ public class TankFactory : MonoBehaviour
         { 
             GameObject newTank = Instantiate(tankToSpawn, spawnPoint, Quaternion.identity);
             newTank.GetComponent<Tank>().team = GameSettings.GetRandomTeam();
+            newTank.GetComponent<TankData>().SetCurrentSetting(TankData.SettingType.A);
              
         }
    
