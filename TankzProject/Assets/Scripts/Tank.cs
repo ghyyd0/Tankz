@@ -76,6 +76,10 @@ public class Tank : MonoBehaviour
         int teamscore = PlayerPrefs.GetInt(team);
         teamscore++;
         PlayerPrefs.SetInt(team, teamscore);
-        Destroy(enemyTank.gameObject);
+        if(enemyTank.GetComponent<TankSettings>())
+        {
+            TankSettings myTankSettings = GetComponent<TankSettings>();
+            myTankSettings.GiveDamage(enemyTank); 
+        }
     }
 }
