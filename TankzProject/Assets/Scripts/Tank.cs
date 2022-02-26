@@ -14,20 +14,42 @@ public class Tank : MonoBehaviour
     [SerializeField] bool isPlayer;
 
     [SerializeField] GameObject _child;
+    private Color bodyColor;
+
     void Start()
     {
         tankNavigation = GetComponent<NavMeshAgent>();
         myTeam = new List<Tank>();
         myTeam = GameObject.FindObjectsOfType<Tank>().ToList().Where(Tank => Tank.team == team).ToList();
 
-        RandomFeature();
+        ColorFeature();
     }
 
-    private void RandomFeature()
+    private void SetBodyColor()
     {
-        team = Random.Range(1111, 999).ToString();
+        switch (team)
+        {
+            case "red":
+                bodyColor = Color.red;
+                break;
+            case "green":
+                bodyColor = Color.green;
+                break;
+            case "blue":
+                bodyColor = Color.blue;
+                break;
+            default:
+                bodyColor = Color.white;
+                break;
+        } 
+    }
+
+   
+    private void ColorFeature()
+    {
+        SetBodyColor();
         foreach (Renderer shape in GetComponentsInChildren<Renderer>())
-            shape.material.color = Random.ColorHSV();
+            shape.material.color = bodyColor;
     }
 
     // Update is called once per frame
@@ -45,7 +67,11 @@ public class Tank : MonoBehaviour
         int teamscore = PlayerPrefs.GetInt(team);
         teamscore++;
         PlayerPrefs.SetInt(team, teamscore);
-        Destroy(enemyTank.gameObject,1);
+        if (enemyTank.GetComponent<TankSettings>())
+        {
+            TankSettings myTankSettings = GetComponent<TankSettings>();
+            myTankSettings.GiveDamage(enemyTank);
+        }
 
 
     }
